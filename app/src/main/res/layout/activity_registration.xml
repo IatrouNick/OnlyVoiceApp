@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationActivity">
+
+    <TextView
+        android:id="@+id/registrationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:autoSizeTextType="uniform"
+        android:text="Registration"
+        tools:ignore="HardcodedText" />
+
+
+    <EditText
+        android:id="@+id/emailReg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_below="@+id/registrationTitle"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/passReg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_below="@+id/emailReg"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/regBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passReg"
+        android:layout_toEndOf="@+id/notRegistered"
+        android:text="Register"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/notSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Registered?"
+        android:layout_below="@+id/regBtn"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regBtn"
+        android:layout_toEndOf="@+id/notSignIn"
+        android:text="Login here"
+        tools:ignore="HardcodedText" />
+
+
+</RelativeLayout>

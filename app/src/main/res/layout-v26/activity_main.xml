@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:autoSizeTextType="uniform"
+        android:text="First "
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleSignInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="136dp" />
+
+    <EditText
+        android:id="@+id/emailLgn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_below="@+id/googleSignInBtn"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/passLgn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_below="@+id/emailLgn"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/signInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passLgn"
+        android:layout_toEndOf="@+id/notRegistered"
+        android:text="Sign IN"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/notRegistered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not register yet?"
+        android:layout_below="@+id/signInBtn"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/registerLgn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signInBtn"
+        android:layout_toEndOf="@+id/notRegistered"
+        android:text="Not register yet?"
+        tools:ignore="HardcodedText" />
+
+
+</RelativeLayout>

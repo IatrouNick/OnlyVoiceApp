@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "892382641842",
+    "project_id": "onlyvoiceapp",
+    "storage_bucket": "onlyvoiceapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892382641842:android:0612d592f75bc82f50d3ab",
+        "android_client_info": {
+          "package_name": "com.example.acg.onlyvoiceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892382641842-10c1i8umvqtjq7eo5dpt6ecun6hn2mjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.acg.onlyvoiceapp",
+            "certificate_hash": "3c8d61ffdd7a6f612ac49fb85ad1c16af6ea40e2"
+          }
+        },
+        {
+          "client_id": "892382641842-939jmim1qk8oakov0engtnck52tp5lh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc1CuwQayxXXV4zbHb9iK6Y5Wu4YZDpe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892382641842-939jmim1qk8oakov0engtnck52tp5lh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
