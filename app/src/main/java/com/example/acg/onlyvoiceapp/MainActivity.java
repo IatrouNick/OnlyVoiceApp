@@ -93,13 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
         String email = emailLgn.getText().toString();
         String password = passLgn.getText().toString();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
         if (TextUtils.isEmpty(email)) {
             emailLgn.setError("Email cannot be empty");
             emailLgn.requestFocus();
         } else if (TextUtils.isEmpty(password)) {
             passLgn.setError("Password cannot be empty");
             passLgn.requestFocus();
-        } else
+        } else if (firebaseUser.isEmailVerified())
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

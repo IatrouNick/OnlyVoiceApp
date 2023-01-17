@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -19,12 +20,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText emailReg;
-    EditText passReg;
-    Button regBtn;
-    Button loginBtn;
+    private EditText emailReg;
+    private EditText passReg;
+    private Button regBtn;
+    private Button loginBtn;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +62,35 @@ public class RegistrationActivity extends AppCompatActivity {
             passReg.setError("Password cannot be empty");
             passReg.requestFocus();
         }else{
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>(){
+            mAuth.createUserWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task){
                     if (task.isSuccessful()){
-                        Toast.makeText(RegistrationActivity.this,"You have been registered Succesfully",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                        mAuth.getCurrentUser().sendEmailVerification()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegistrationActivity.this, "An email has been send to verify your account.", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                                    } else {
+                                        Toast.makeText(RegistrationActivity.this, "Registration failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                  //      @Override
+                  //              public void onComplete(@NonNull Task<Void> task) {
+                  //                  if (task.isSuccessful()) {
+                  //                      Toast.makeText(RegistrationActivity.this, "You have been registered Succesfully", Toast.LENGTH_SHORT).show();
+                  //                      startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                  //                  }else{
+                  //                      Toast.makeText(RegistrationActivity.this,"Registration failed" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                  //                  }
+                  //              }
+                  //          });
+
+
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Registration failed" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
