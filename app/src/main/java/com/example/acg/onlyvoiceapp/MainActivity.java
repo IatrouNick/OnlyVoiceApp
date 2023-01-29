@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.util.JsonUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +29,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(view -> {
             loginUser();
         });
+
+        //Register new user
         registerLgn.setOnClickListener(view ->
                 startActivity(new Intent(MainActivity.this, RegistrationActivity.class))
         );
@@ -91,34 +98,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginUser() {
 
-        String email = emailLgn.getText().toString();
-        String password = passLgn.getText().toString();
+        String email = binding.emailLgn.getText().toString().trim();
+        String password = binding.passLgn.getText().toString().trim();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        if (TextUtils.isEmpty(email)) {
-            emailLgn.setError("Email cannot be empty");
-            emailLgn.requestFocus();
-        } else if (TextUtils.isEmpty(password)) {
-            passLgn.setError("Password cannot be empty");
-            passLgn.requestFocus();
-        } else if (mAuth.getCurrentUser().isEmailVerified()) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, WallActivity.class));
-                    } else {
-                        Toast.makeText(MainActivity.this, "Log in failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
 
-            });
-        }else if (!mAuth.fetchSignInMethodsForEmail(email).isSuccessful()) {
-            Toast.makeText(MainActivity.this, "Please make sure you have registered and verified your email.", Toast.LENGTH_SHORT).show();
-        }
-            //      } else if (!mAuth.getCurrentUser().isEmailVerified()) {
-   //         Toast.makeText(MainActivity.this, "Email not verified" , Toast.LENGTH_SHORT).show();
-    //    }
+            if (TextUtils.isEmpty(email)) {
+                emailLgn.setError("Email cannot be empty");
+                emailLgn.requestFocus();
+            } else if (TextUtils.isEmpty(password)) {
+                passLgn.setError("Password cannot be empty");
+                passLgn.requestFocus();
+            } else
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //check if email is verified before signing in
+                            if (mAuth.getCurrentUser().isEmailVerified()) {
+                                Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, WallActivity.class));
+                            }else if(!mAuth.getCurrentUser().isEmailVerified()){
+                                Toast.makeText(MainActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                                mAuth.getCurrentUser().sendEmailVerification();}
+                        }else if(!mAuth.getCurrentUser().isEmailVerified()){
+                            Toast.makeText(MainActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
+                            mAuth.getCurrentUser().sendEmailVerification();
+                        //if email is wrong or not verified show error
+                        } else {
+                            Toast.makeText(MainActivity.this, "Log in failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN){
-            Log.d(TAG,"Google signin result");
+            Log.d(TAG,"Google sign in result");
             Task<GoogleSignInAccount> accountTask =GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 //firebase auth if ok
