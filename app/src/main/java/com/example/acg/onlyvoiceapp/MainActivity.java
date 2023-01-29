@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         signInBtn = findViewById(R.id.signInBtn);
 
 
-        //configure Signin
+        //configure Google Sign in
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         //firebase auth
         mAuth =FirebaseAuth.getInstance();
 
-        //Goggle signin button
+        //Google sign in button
         binding.googleSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(password)) {
             passLgn.setError("Password cannot be empty");
             passLgn.requestFocus();
-        } else if (firebaseUser.isEmailVerified())
+        } else if (mAuth.getCurrentUser().isEmailVerified()) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -108,12 +108,18 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this, WallActivity.class));
                     } else {
-                        Toast.makeText(MainActivity.this, "Loggin failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Log in failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
-    }
 
+            });
+        }else if (!mAuth.fetchSignInMethodsForEmail(email).isSuccessful()) {
+            Toast.makeText(MainActivity.this, "Please make sure you have registered and verified your email.", Toast.LENGTH_SHORT).show();
+        }
+            //      } else if (!mAuth.getCurrentUser().isEmailVerified()) {
+   //         Toast.makeText(MainActivity.this, "Email not verified" , Toast.LENGTH_SHORT).show();
+    //    }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

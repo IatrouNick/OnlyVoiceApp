@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                     }else{
-                        Toast.makeText(RegistrationActivity.this,"Registration failed" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this,"Registration failed " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             }) ;
