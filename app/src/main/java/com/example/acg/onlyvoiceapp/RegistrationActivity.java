@@ -79,17 +79,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                  //      @Override
-                  //              public void onComplete(@NonNull Task<Void> task) {
-                  //                  if (task.isSuccessful()) {
-                  //                      Toast.makeText(RegistrationActivity.this, "You have been registered Succesfully", Toast.LENGTH_SHORT).show();
-                  //                      startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                  //                  }else{
-                  //                      Toast.makeText(RegistrationActivity.this,"Registration failed" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                  //                  }
-                  //              }
-                  //          });
-
 
                     }else{
                         Toast.makeText(RegistrationActivity.this,"Registration failed " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();

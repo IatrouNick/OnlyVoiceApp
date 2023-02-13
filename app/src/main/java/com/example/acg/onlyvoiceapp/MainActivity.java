@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.example.acg.onlyvoiceapp.databinding.ActivityMainBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                             //check if email is verified before signing in
                             if (mAuth.getCurrentUser().isEmailVerified()) {
                                 Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, WallActivity.class));
+                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                             }else if(!mAuth.getCurrentUser().isEmailVerified()){
                                 Toast.makeText(MainActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
                                 mAuth.getCurrentUser().sendEmailVerification();}
