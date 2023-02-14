@@ -28,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
 
     private FirebaseAuth mAuth;
     private long id = 0;
@@ -37,9 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText firstName;
     private EditText lastName;
     private Button confirmProfile;
-
-    private ImageView imageView;
-    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         lastName = findViewById(R.id.lastName);
         confirmProfile = findViewById(R.id.confirmProfile);
 
-        imageView = findViewById(R.id.imageProfile);
+
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -69,54 +64,21 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                 //get db reference
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+                //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+                //generate a unique key for each user
+                String key = databaseReference.push().getKey();
 
-                //get count of users to increment the ID
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            id = (snapshot.getChildrenCount());
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                databaseReference.child(String.valueOf(id + 1)).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                databaseReference.child(String.valueOf(key)).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         firstName.setText("");
                         lastName.setText("");
-                        Toast.makeText(ProfileActivity.this, "Maybe", Toast.LENGTH_SHORT).show();
-                        System.out.println(id);
-
-
-                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-
+                        Toast.makeText(ProfileActivity.this, "Creation Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
     }
-
-    //TODO or not  implement an image management system
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-                // Get the Uri of the selected image
-                Uri imageUri = data.getData();
-
-                // Display the selected image in the ImageView
-                imageView.setImageURI(imageUri);
-            }
-        }
 
 }

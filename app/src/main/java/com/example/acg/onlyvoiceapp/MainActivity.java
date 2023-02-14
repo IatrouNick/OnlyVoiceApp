@@ -30,6 +30,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.ls.LSOutput;
 
@@ -117,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                             //check if email is verified before signing in
                             if (mAuth.getCurrentUser().isEmailVerified()) {
                                 Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                                checkUser(email);
                             }else if(!mAuth.getCurrentUser().isEmailVerified()){
                                 Toast.makeText(MainActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();
                                 mAuth.getCurrentUser().sendEmailVerification();}
@@ -176,10 +182,8 @@ public class MainActivity extends AppCompatActivity {
                             //if existing user
                             Toast.makeText(MainActivity.this,"Welcome", Toast.LENGTH_SHORT).show();
                         }
+                        checkUser(email);
 
-                        //Login to application activity
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                        finish();
 
                     }
                 })
@@ -191,6 +195,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+    }
+
+    private void checkUser(String email){
+        //get a reference of the db
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //get the users node
+        DatabaseReference myNodeRef = database.getReference("Users");
+        //check the email
+        Query query = myNodeRef.orderByChild("email").equalTo(email);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //If user has a profile go to wall activity else go to creation
+                if (dataSnapshot.exists()) {
+                    startActivity(new Intent(MainActivity.this, WallActivity.class));
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                } else {
+                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                }
+                finish();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
     }
 
