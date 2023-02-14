@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         //Login to application activity
-                        startActivity(new Intent(MainActivity.this, WallActivity.class));
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         finish();
 
                     }
@@ -193,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 }
 

@@ -14,21 +14,14 @@ import com.google.firebase.auth.FirebaseUser;
 public class WallActivity extends AppCompatActivity {
 
     public ActivityWallBinding binding;
-
-    //Button logoutBtn;
     private FirebaseAuth mAuth;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityWallBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //setContentView(R.layout.activity_wall);
 
-        //find by id
-        //    logoutBtn =findViewById(R.id.logoutBtn);
 
         mAuth = FirebaseAuth.getInstance();
         checkUser();
