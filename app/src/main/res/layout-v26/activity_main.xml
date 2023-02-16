@@ -29,16 +29,21 @@
         android:id="@+id/emailLgn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
         android:layout_below="@+id/googleSignInBtn"
+        android:nextFocusDown="@+id/passLgn"
+        android:singleLine="true"
+        android:hint="Email"
         tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/passLgn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
         android:layout_below="@+id/emailLgn"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:inputType="textPassword"
+        android:hint="Password"
         tools:ignore="HardcodedText" />
 
     <Button

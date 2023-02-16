@@ -19,15 +19,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/createProfileTitle"
+        android:nextFocusDown="@+id/lastName"
         android:hint="First Name"
+        android:singleLine="true"
         tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"
         android:layout_below="@+id/firstName"
+        android:imeOptions="actionDone"
+        android:hint="Last Name"
+        android:singleLine="true"
         tools:ignore="HardcodedText" />
 
     <Button

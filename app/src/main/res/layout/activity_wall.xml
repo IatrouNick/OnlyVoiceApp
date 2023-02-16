@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".WallActivity">
 
+
     <TextView
         android:id="@+id/userId"
-        android:layout_width="300dp"
-        android:layout_height="180dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="maybe"
-        tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="27dp"
         tools:ignore="MissingConstraints" />
 
     <Button
