@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlyVoiceApp">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ShowProfile"></activity>
+        <activity android:name=".UsersSearchItems" />
+        <activity android:name=".ProfileCreationActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

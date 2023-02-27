@@ -20,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.util.JsonUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,10 +35,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -212,9 +207,8 @@ public class MainActivity extends AppCompatActivity {
                 //If user has a profile go to wall activity else go to creation
                 if (dataSnapshot.exists()) {
                     startActivity(new Intent(MainActivity.this, WallActivity.class));
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 } else {
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(MainActivity.this, ProfileCreationActivity.class));
                 }
                 finish();
             }
