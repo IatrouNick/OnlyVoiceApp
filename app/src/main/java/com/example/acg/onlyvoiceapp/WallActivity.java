@@ -51,6 +51,8 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         mAuth = FirebaseAuth.getInstance();
         checkUser();
 
+
+        //simple logout button
         binding.logoutBtn.setOnClickListener(view -> {
             mAuth.signOut();
             checkUser();
@@ -58,7 +60,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         });
 
 
-        //search users
+        //search users based on written text in the edittext field
         SearchView searchView = findViewById(R.id.searchView);
         mRecyclerView = findViewById(R.id.searchResultsRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

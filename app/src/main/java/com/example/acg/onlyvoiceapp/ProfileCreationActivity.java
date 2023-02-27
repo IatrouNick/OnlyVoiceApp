@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileCreationActivity extends AppCompatActivity {
 
-
     private FirebaseAuth mAuth;
     private long id = 0;
 

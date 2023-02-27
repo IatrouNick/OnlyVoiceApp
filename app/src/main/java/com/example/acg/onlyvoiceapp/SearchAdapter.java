@@ -40,6 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<UsersSearchItems> {
 
     @Override
     public void onBindViewHolder(@NonNull UsersSearchItems holder, int position) {
+        //get adapters fields to set them on the recycle view
         Users users = mUserList.get(position);
         holder.searchFirstName.setText(users.getFirstName());
         holder.searchLastName.setText(users.getLastName());

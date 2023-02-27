@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         //login failed
-                        Log.d(TAG,"Loggin failed");
+                        Log.d(TAG,"Login failed");
                     }
                 });
 
