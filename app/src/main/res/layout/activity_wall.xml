@@ -17,13 +17,22 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:iconifiedByDefault="false" />
+
+    <Button
+        android:id="@+id/createPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchResultsRecyclerView"
+        android:text="Post"
+        tools:ignore="HardcodedText" />
+
+
     <TextView
         android:id="@+id/userId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchResultsRecyclerView"
+        android:layout_below="@+id/createPostBtn"
         android:text="maybe"
         tools:ignore="MissingConstraints" />
 

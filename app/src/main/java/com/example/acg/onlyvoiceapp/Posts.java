@@ -4,16 +4,16 @@ import android.widget.Button;
 
 public class Posts {
     private String userKey;
-    private String postTitle; //User's name
+    private String userName;
     private String postBody;
     private long timestamp;
 
     public Posts() {
         //Retrieve posts objects from DB DataSnapshot.getValue(Post.class)
     }
-    public Posts(String userKey, String postTitle, String postBody, long timestamp) {
+    public Posts(String userKey, String userName, String postBody, long timestamp) {
         this.userKey = userKey;
-        this.postTitle = postTitle;
+        this.userName = userName;
         this.postBody = postBody;
         this.timestamp = timestamp;
     }
@@ -26,12 +26,12 @@ public class Posts {
         this.userKey = userKey;
     }
 
-    public String getPostTitle() {
-        return postTitle;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPostTitle(String postTitle) {
-        this.postTitle = postTitle;
+    public void setUserName(String postTitle) {
+        this.userName = postTitle;
     }
 
     public String getPostBody() {

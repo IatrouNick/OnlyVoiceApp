@@ -59,6 +59,12 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
             startActivity(new Intent(WallActivity.this, MainActivity.class));
         });
 
+        binding.createPostBtn.setOnClickListener(view -> {
+        //    Intent intent = new Intent(WallActivity.this, CreatePostActivity.class);
+        //    intent.putExtra("userId", mAuth.getCurrentUser()); // pass the user ID to the next activity
+        //    startActivity(intent);
+            startActivity(new Intent(WallActivity.this, CreatePostActivity.class));
+        });
 
         //search users based on written text in the edittext field
         SearchView searchView = findViewById(R.id.searchView);
@@ -153,14 +159,11 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
     }
 
-
-
     public void onItemClick(Users users) {
        // Toast.makeText(WallActivity.this, "Button Successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(WallActivity.this, ShowProfile.class);
         intent.putExtra("userEmail", users.getEmail()); // pass the user ID to the next activity
         startActivity(intent);
     }
-
 
 }
