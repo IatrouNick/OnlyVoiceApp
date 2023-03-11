@@ -6,27 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".WallActivity">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchResultsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchView"/>
-
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false" />
 
+
+
+    <ScrollView
+        android:id="@+id/searchScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchView">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/searchResultsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/searchView"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/postsLinearView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/searchScrollView">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postsResultsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                android:scrollbars="vertical"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+
     <Button
         android:id="@+id/createPostBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchResultsRecyclerView"
+        android:layout_below="@+id/postsLinearView"
         android:text="Post"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
 
+        />
 
     <TextView
         android:id="@+id/userId"
@@ -42,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/userId"
         android:text="Log out"
-        tools:ignore="HardcodedText" />
-
+        tools:ignore="HardcodedText"
+        />
 
 </RelativeLayout>

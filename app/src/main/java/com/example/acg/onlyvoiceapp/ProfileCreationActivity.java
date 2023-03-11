@@ -38,7 +38,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
         confirmProfile = findViewById(R.id.confirmProfile);
 
 
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
@@ -52,14 +51,17 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 //get values for user
                 String firstName1 = firstName.getText().toString();
                 String lastName1 = lastName.getText().toString();
-                Users users = new Users(email, firstName1, lastName1);
-
 
                 //get db reference
                 //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                //String key = databaseReference.push().getKey();
+                String key= mAuth.getUid();
+                Users users = new Users(email, firstName1, lastName1, key);
                 //generate a unique key for each user
-                String key = databaseReference.push().getKey();
+
+
 
                 databaseReference.child(String.valueOf(key)).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

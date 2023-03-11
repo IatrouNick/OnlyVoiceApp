@@ -1,21 +1,29 @@
 package com.example.acg.onlyvoiceapp;
 
-import android.widget.Button;
-
 public class Posts {
     private String userKey;
+    private String postKey;
     private String userName;
     private String postBody;
     private long timestamp;
 
     public Posts() {
-        //Retrieve posts objects from DB DataSnapshot.getValue(Post.class)
+
     }
-    public Posts(String userKey, String userName, String postBody, long timestamp) {
+    public Posts(String userKey, String postKey, String userName, String postBody, long timestamp) {
         this.userKey = userKey;
+        this.postKey = postKey;
         this.userName = userName;
         this.postBody = postBody;
         this.timestamp = timestamp;
+    }
+
+    public String getPostKey() {
+        return postKey;
+    }
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
     }
 
     public String getUserKey() {

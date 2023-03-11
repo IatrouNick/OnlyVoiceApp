@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +26,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String fullName;
     private String postTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +67,16 @@ public class CreatePostActivity extends AppCompatActivity {
 
                     String postBodyPart = postBody.getText().toString();
                     long timestamp = System.currentTimeMillis();
-                    // create new post object
-                    Posts posts = new Posts(userId, postTitle, postBodyPart, timestamp);
 
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
                     //generate a unique key for each post
-                    String key = databaseReference.push().getKey();
+                    String postKey = databaseReference.push().getKey();
+                    // create new post object
+                    Posts posts = new Posts(userId, postKey, postTitle, postBodyPart, timestamp);
 
-                    databaseReference.child(String.valueOf(key)).setValue(posts).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    databaseReference.child(String.valueOf(postKey)).setValue(posts).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(CreatePostActivity.this, "Creation Successful", Toast.LENGTH_SHORT).show();
