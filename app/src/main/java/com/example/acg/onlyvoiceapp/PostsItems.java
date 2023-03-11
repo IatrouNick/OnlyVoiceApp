@@ -82,13 +82,6 @@ public class PostsItems extends RecyclerView.ViewHolder {
                     }
                 });
 
-                //Likes likes = new Likes(userId, postKey);
-                //databaseReference.child(String.valueOf(key)).setValue(likes).addOnCompleteListener(new OnCompleteListener<Void>() {
-                //    @Override
-                //    public void onComplete(@NonNull Task<Void> task) {
-                //
-                //    }
-                //});
 
             }
         });

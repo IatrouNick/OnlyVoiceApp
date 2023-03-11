@@ -5,6 +5,10 @@ public class Likes {
     private String userKey;
     private String postKey;
 
+    public Likes(){
+
+    }
+
     public Likes(String userKey, String postKey) {
         this.userKey = userKey;
         this.postKey = postKey;

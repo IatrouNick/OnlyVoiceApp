@@ -73,6 +73,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         mRecyclerViewUsers.setAdapter(mAdapterUsers);
 
         mAdapterUsers.setOnItemClickListener(this);
+        onItemClick(postsRef);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -103,7 +104,9 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         mRecyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
         mAdapterPosts = new PostsAdapter(this, mPostsList);
 
+
         mAdapterPosts.setOnItemClickListener(this);
+
         mRecyclerViewPosts.setAdapter(mAdapterPosts);
 
         //make the sizee of the recycler view to be limited to the screen height so i can also have my button in the bottom
@@ -217,6 +220,11 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
                 // Handle errors here
             }
         });
+    }
+
+    @Override
+    public void onItemClick(DatabaseReference posts) {
+        System.out.println("aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaa");
     }
 }
 
