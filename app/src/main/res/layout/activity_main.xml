@@ -57,7 +57,7 @@
         android:id="@+id/notRegistered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Not register yet?"
+        android:text="Not registered yet?"
         android:layout_below="@+id/signInBtn"
         tools:ignore="HardcodedText" />
 
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signInBtn"
         android:layout_toEndOf="@+id/notRegistered"
-        android:text="Not register yet?"
+        android:text="Not registered yet?"
         tools:ignore="HardcodedText" />
 
 

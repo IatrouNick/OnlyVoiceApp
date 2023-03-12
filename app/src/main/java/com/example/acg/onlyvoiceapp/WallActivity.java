@@ -9,9 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 
 import com.example.acg.onlyvoiceapp.databinding.ActivityWallBinding;
@@ -54,14 +51,15 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         binding.logoutBtn.setOnClickListener(view -> {
             mAuth.signOut();
             checkUser();
-            startActivity(new Intent(WallActivity.this, MainActivity.class));
+            finish();
+            //startActivity(new Intent(WallActivity.this, MainActivity.class));
         });
 
         binding.createPostBtn.setOnClickListener(view -> {
         //    Intent intent = new Intent(WallActivity.this, CreatePostActivity.class);
         //    intent.putExtra("userId", mAuth.getCurrentUser()); // pass the user ID to the next activity
         //    startActivity(intent);
-            startActivity(new Intent(WallActivity.this, CreatePostActivity.class));
+            startActivity(new Intent(WallActivity.this, PostCreateActivity.class));
         });
 
         //search users based on written text in the edittext field
@@ -132,6 +130,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         if (firebaseUser == null) {
             //user is not logged in
             startActivity(new Intent(WallActivity.this, MainActivity.class));
+            //finish();
         } else {
             //get user info
             String email = firebaseUser.getEmail();
@@ -141,6 +140,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
     }
 
+    //Perfrorm the sesarch functionality for users
     private void performSearch(String query) {
 
         //clear list if i change something in the search
@@ -150,15 +150,24 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         // Query the database and add the results to the list
         // Here's an example using the orderByChild and equalTo methods:
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
-        Query queryRef = usersRef.orderByChild("lastName").equalTo(query);
+       // Query queryRef = usersRef.orderByChild("lastName").equalTo(query);
+        Query queryRef = usersRef.orderByChild("lastName");
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
-                    mUserList.add(users);
-                    mAdapterUsers.notifyItemInserted(mUserList.size() - 1);
 
+                    //search with lastname
+                   if (users.getLastName().toLowerCase().contains(query.toLowerCase())) {
+                        mUserList.add(users);
+                        mAdapterUsers.notifyItemInserted(mUserList.size() - 1);
+                    }
+                   //else search with firstname
+                   else if (users.getFirstName().toLowerCase().contains(query.toLowerCase())) {
+                       mUserList.add(users);
+                       mAdapterUsers.notifyItemInserted(mUserList.size() - 1);
+                   }
                     //check if there are no users with that name do remove the recycle view
                     if (mUserList.size() == 0) {
                         mRecyclerViewUsers.setVisibility(View.GONE);
@@ -185,17 +194,15 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
     }
 
+    //On user click go to their profile
     public void onItemClick(Users users) {
        // Toast.makeText(WallActivity.this, "Button Successful", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(WallActivity.this, ShowProfile.class);
-        intent.putExtra("userEmail", users.getEmail()); // pass the user ID to the next activity
+        intent.putExtra("userKey", users.getUserKey()); // pass the user ID to the next activity
         startActivity(intent);
     }
 
-    public void onItemClick(Posts posts) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-    }
+    //Load posts from DB
     private void loadPosts() {
         // Attach a listener for Firebase Realtime Database changes
         postsRef.addValueEventListener(new ValueEventListener() {
@@ -224,7 +231,6 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
     @Override
     public void onItemClick(DatabaseReference posts) {
-        System.out.println("aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaa");
     }
 }
 

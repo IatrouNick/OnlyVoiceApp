@@ -23,7 +23,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private long id = 0;
-
     private EditText firstName;
     private EditText lastName;
     private Button confirmProfile;
@@ -59,9 +58,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
                 //String key = databaseReference.push().getKey();
                 String key= mAuth.getUid();
                 Users users = new Users(email, firstName1, lastName1, key);
-                //generate a unique key for each user
-
-
 
                 databaseReference.child(String.valueOf(key)).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import java.util.List;
 
-public class SearchAdapter extends RecyclerView.Adapter<UsersSearchItems> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchUsersItems> {
 
     private Context mContext;
     private List<Users> mUserList;
@@ -33,13 +32,13 @@ public class SearchAdapter extends RecyclerView.Adapter<UsersSearchItems> {
 
     @NonNull
     @Override
-    public UsersSearchItems onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchUsersItems onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.activity_users_search_items, parent, false);
-        return new UsersSearchItems(view);
+        return new SearchUsersItems(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersSearchItems holder, int position) {
+    public void onBindViewHolder(@NonNull SearchUsersItems holder, int position) {
         //get adapters fields to set them on the recycle view
         Users users = mUserList.get(position);
         holder.searchFirstName.setText(users.getFirstName());

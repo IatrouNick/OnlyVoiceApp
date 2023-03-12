@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.PluralsRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,8 +34,9 @@ public class PostsItems extends RecyclerView.ViewHolder {
     public Button postComment;
     public TextView postLike;
     public TextView postLikesText;
+
     private FirebaseAuth mAuth;
-    private GestureDetector gestureDetector;
+    public Button postDelete;
 
 
     public PostsItems(View view) {
@@ -42,12 +44,14 @@ public class PostsItems extends RecyclerView.ViewHolder {
 
 
         postAuthorFullName = itemView.findViewById(R.id.postAuthorFullName);
-
         postBody = itemView.findViewById(R.id.postBody);
         postComment = itemView.findViewById(R.id.postComment);
         postLike = itemView.findViewById(R.id.postLike);
         postLikesText = itemView.findViewById(R.id.postLikesText);
+        postDelete = itemView.findViewById(R.id.postDelete);
 
+
+        //Use this for onClick functionalities for posts
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,37 +62,21 @@ public class PostsItems extends RecyclerView.ViewHolder {
                 String userId = firebaseUser.getUid();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
                 Query queryRef = databaseReference.orderByChild("userKey").equalTo(userId);
-
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
-
                             String postKey = postSnapshot.getKey();
                             String key = databaseReference.push().getKey();
 
-
-
-
                         }
-
                     }
-
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         // handle error
                     }
                 });
-
-
             }
         });
     }
-
-
-
-
-
 }

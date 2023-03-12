@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlyVoiceApp">
         <activity android:name=".PostsItems"></activity>
-        <activity android:name=".CreatePostActivity" />
+        <activity android:name=".PostCreateActivity" />
         <activity android:name=".ShowProfile" />
-        <activity android:name=".UsersSearchItems" />
+        <activity android:name=".SearchUsersItems" />
         <activity android:name=".ProfileCreationActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".MainActivity">

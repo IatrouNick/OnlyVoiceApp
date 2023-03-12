@@ -32,7 +32,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
     private FirebaseAuth mAuth;
     public boolean found = false;
 
-
     public PostsAdapter(Context context, List<Posts> postList) {
         mContext = context;
         mPostList = postList;
@@ -72,7 +71,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String userKey = firebaseUser.getUid();
+        System.out.println(userKey);
 
+        //Get authors name
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
         Query queryRef = usersRef.orderByChild("userKey").equalTo(posts.getUserKey());
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,6 +82,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
                     holder.postAuthorFullName.setText(users.getFirstName() + " " + users.getLastName());
+                    if (users.getUserKey().equals(userKey)){
+                        holder.postDelete.setVisibility(View.VISIBLE);
+                    }else{
+                        holder.postDelete.setVisibility(View.GONE);
+                    }
+
+
                 }
             }
 
@@ -91,7 +99,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
         });
 
+        //get body
         holder.postBody.setText(posts.getPostBody());
+
+
+        //get comments button
         holder.postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +112,43 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
             }
         });
+
+        //delete button
+        holder.postDelete.setOnClickListener(new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View v) {
+                                                     //open a comment section
+                                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts/" + postKey);
+
+                                                     // Call removeValue() method to delete the node
+                                                     ref.removeValue()
+                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                 @Override
+                                                                 public void onSuccess(Void aVoid) {
+
+                                                                 }
+                                                             });
+                                                 }
+                                             });
+//find likes for each post
+
+        DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
+        Query query = likesRef.orderByChild("postKey").equalTo(postKey);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int countLikes = 0;
+                for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
+                    countLikes++;
+
+                }
+                holder.postLike.setText(String.valueOf(countLikes));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
 
 //use below functionality to like/ remove like from a post
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +174,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                                         // postKey found in likes database
                                         for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
                                             // Access like data
-                                            Likes likes = likeSnapshot.getValue(Likes.class);
+                                            PostLikes likes = likeSnapshot.getValue(PostLikes.class);
                                             if (likes.getUserKey().equals(userKey))
                                             found = true;
                                         }
@@ -139,7 +188,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            // Node was successfully deleted
+
+
+                                                            DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
+                                                            Query query = likesRef.orderByChild("postKey").equalTo(postKey);
+                                                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    int countLikes = 0;
+                                                                    for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
+                                                                        countLikes++;
+
+                                                                    }
+                                                                    holder.postLike.setText(String.valueOf(countLikes));
+                                                                }
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
+                                                                }
+                                                            });
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
@@ -154,11 +220,26 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                                         if (!found){
                                             //like
                                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Likes");
-                                            Likes likesAdd = new Likes(userKey, postKey);
+                                            PostLikes likesAdd = new PostLikes(userKey, postKey);
                                             databaseReference.child(String.valueOf(postKey)).setValue(likesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
+                                                    DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
+                                                    Query query = likesRef.orderByChild("postKey").equalTo(postKey);
+                                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            int countLikes = 0;
+                                                            for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
+                                                                countLikes++;
 
+                                                            }
+                                                            holder.postLike.setText(String.valueOf(countLikes));
+                                                        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
@@ -193,5 +274,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
         mPostList = posts;
         notifyDataSetChanged();
     }
+
+
+
+
+
 
 }

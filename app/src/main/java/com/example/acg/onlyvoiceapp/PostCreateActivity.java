@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class CreatePostActivity extends AppCompatActivity {
+public class PostCreateActivity extends AppCompatActivity {
 
     private EditText postBody;
     private Button postBtn;
@@ -79,7 +79,7 @@ public class CreatePostActivity extends AppCompatActivity {
                     databaseReference.child(String.valueOf(postKey)).setValue(posts).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(CreatePostActivity.this, "Creation Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostCreateActivity.this, "Creation Successful", Toast.LENGTH_SHORT).show();
                         }
                     });
 

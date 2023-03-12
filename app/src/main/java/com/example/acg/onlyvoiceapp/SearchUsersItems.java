@@ -11,13 +11,13 @@ import android.widget.TextView;
 This one is for the recycle view. have a view for each user found 
 
 */
-public class UsersSearchItems extends RecyclerView.ViewHolder {
+public class SearchUsersItems extends RecyclerView.ViewHolder {
 
     public TextView searchFirstName;
     public TextView searchLastName;
 
 
-    public UsersSearchItems(@NonNull View itemView) {
+    public SearchUsersItems(@NonNull View itemView) {
         super(itemView);
 
         searchFirstName = itemView.findViewById(R.id.searchFirstName);
