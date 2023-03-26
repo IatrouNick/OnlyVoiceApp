@@ -22,11 +22,30 @@
         />
 
     <Button
+        android:id="@+id/speakBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speak"
+        android:onClick="startRecording"
+        android:layout_below="@+id/postBody"
+        />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Clear Post"
+        android:layout_below="@+id/postBody"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
         android:id="@+id/postBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_below="@+id/postBody"
+
+        android:text="Post"
+        android:layout_below="@+id/speakBtn"
         />
 
 
