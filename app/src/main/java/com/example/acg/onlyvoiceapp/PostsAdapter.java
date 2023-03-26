@@ -1,12 +1,14 @@
 package com.example.acg.onlyvoiceapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
@@ -133,32 +142,59 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                         });
             }
         });
-//find likes for each post
 
-        DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
-        Query query = likesRef.orderByChild("postKey").equalTo(postKey);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//find likes for each post
+        // Attach a listener to each post to count the number of likes
+        DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("Likes").child("postKey");
+
+        likesRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int countLikes = 0;
-                for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
-                    countLikes++;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    if (postSnapshot.getKey().equals(postKey)) {
+                        int likesCount = (int) postSnapshot.getChildrenCount();
+                        holder.postLike.setText(String.valueOf(likesCount));
+
+                    }
 
                 }
-                holder.postLike.setText(String.valueOf(countLikes));
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+   //     DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("Likes").child("postKey");
+   //     Query query = likesRef.orderByChild("postKey").equalTo(postKey);
+   //     //query.addListenerForSingleValueEvent(new ValueEventListener() {
+   //     likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+   //         @Override
+   //         public void onDataChange(@NonNull DataSnapshot snapshot) {
+   //             long countLikes = 0;
+   //             //long countLikes = snapshot.getChildrenCount();
+   //             System.out.println("test123aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+   //             //System.out.println(countLikes);
+   //                 countLikes = snapshot.getChildrenCount();
+   //
+   //             System.out.println(countLikes);
+   //             holder.postLike.setText(String.valueOf(countLikes));
+   //         }
+   //
+   //         @Override
+   //         public void onCancelled(@NonNull DatabaseError error) {
+   //         }
+   //     });
 
         
 
 //use below functionality to like/ remove like from a post
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
-            private static final long DOUBLE_CLICK_TIME_DELTA = 1000; // Time in milliseconds
+            private static final long DOUBLE_CLICK_TIME_DELTA = 200; // Time in milliseconds
             long lastClickTime = 0;
 
             @Override
@@ -166,104 +202,37 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                 long clickTime = System.currentTimeMillis();
                 if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
 
-                    DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
-                    Query query = likesRef.orderByChild("postKey").equalTo(postKey);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    //like/dislike a post
+                    DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("Likes").child("postKey");
+                    likesRef.child(postKey).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            found = false;
-                            if (snapshot.exists()) {
-                                // postKey found in likes database
-                                for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
-                                    // Access like data
-                                    String key = likeSnapshot.getKey();
-                                    String userKeyId = likeSnapshot.child("userKey").getValue(String.class);
-                                    String postKeyId = likeSnapshot.child("postKey").getValue(String.class);
-                                    //PostLikes likes = likeSnapshot.getValue(PostLikes.class);
-                                    if (userKeyId.equals(userKey) && postKeyId.equals(postKey)) {
-                                        found = true;
-                                        likesRef.child(key).removeValue();
-                                        //likesRef.removeValue();
+                            if (snapshot.hasChild(userKey)) {
+
+                                boolean liked = snapshot.child(userKey).getValue(Boolean.class);
+                                if (liked) {
+                                    if (holder.postLike.getText().toString().equals("1")) {
+                                        holder.postLike.setText(String.valueOf("0"));
+
                                     }
+                                    likesRef.child(postKey).child(userKey).removeValue();
+
+
+                                } else {
+                                    likesRef.child(postKey).child(userKey).setValue(true);
                                 }
+                            } else {
+                                likesRef.child(postKey).child(userKey).setValue(true);
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            // handle error
+                        public void onCancelled(@NonNull DatabaseError error) {
+
                         }
                     });
 
-                System.out.println(found);
-                if (found) {
-                    //remove like
-                    System.out.println(userKey);
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Likes/" + postKey);
 
-                    // Call removeValue() method to delete the node
-                    ref.removeValue()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-
-                                    DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
-                                    Query query = likesRef.orderByChild("postKey").equalTo(postKey);
-                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            int countLikes = 0;
-                                            for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
-                                                countLikes++;
-
-                                            }
-                                            holder.postLike.setText(String.valueOf(countLikes));
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                        }
-                                    });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Handle any errors that occurred while deleting the node
-                                }
-                            });
-
-
-                }
-                if (!found) {
-                    //like
-
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Likes");
-                    String key = databaseReference.push().getKey();
-                    PostLikes likesAdd = new PostLikes(userKey, postKey);
-                    databaseReference.child(String.valueOf(key)).setValue(likesAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference("Likes");
-                            Query query = likesRef.orderByChild("postKey").equalTo(postKey);
-                            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    int countLikes = 0;
-                                    for (DataSnapshot likeSnapshot : snapshot.getChildren()) {
-                                        countLikes++;
-
-                                    }
-                                    holder.postLike.setText(String.valueOf(countLikes));
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
-                        }
-                    });
-                }
                 }
                 lastClickTime = clickTime;
             }
