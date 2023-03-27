@@ -167,28 +167,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-   //     DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("Likes").child("postKey");
-   //     Query query = likesRef.orderByChild("postKey").equalTo(postKey);
-   //     //query.addListenerForSingleValueEvent(new ValueEventListener() {
-   //     likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-   //         @Override
-   //         public void onDataChange(@NonNull DataSnapshot snapshot) {
-   //             long countLikes = 0;
-   //             //long countLikes = snapshot.getChildrenCount();
-   //             System.out.println("test123aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-   //             //System.out.println(countLikes);
-   //                 countLikes = snapshot.getChildrenCount();
-   //
-   //             System.out.println(countLikes);
-   //             holder.postLike.setText(String.valueOf(countLikes));
-   //         }
-   //
-   //         @Override
-   //         public void onCancelled(@NonNull DatabaseError error) {
-   //         }
-   //     });
-
         
 
 //use below functionality to like/ remove like from a post
