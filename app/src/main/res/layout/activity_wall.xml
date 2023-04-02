@@ -83,8 +83,18 @@
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/userId"
+        android:layout_below="@+id/postsLinearView"
+        android:layout_toRightOf="@+id/createPostBtn"
         android:text="Log out"
+        tools:ignore="HardcodedText"
+        />
+    <Button
+        android:id="@+id/chatActivityBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postsLinearView"
+        android:layout_toRightOf="@+id/logoutBtn"
+        android:text="Chat"
         tools:ignore="HardcodedText"
         />
 

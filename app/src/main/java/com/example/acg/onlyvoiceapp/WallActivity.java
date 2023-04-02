@@ -46,6 +46,14 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         mAuth = FirebaseAuth.getInstance();
         checkUser();
 
+        //go to chat activity
+        binding.chatActivityBtn.setOnClickListener(view -> {
+            startActivity(new Intent(WallActivity.this, ChatActivity.class));
+
+        });
+
+
+
 
         //simple logout button
         binding.logoutBtn.setOnClickListener(view -> {
@@ -107,7 +115,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
         mRecyclerViewPosts.setAdapter(mAdapterPosts);
 
-        //make the sizee of the recycler view to be limited to the screen height so i can also have my button in the bottom
+        //make the size of the recycler view to be limited to the screen height so i can also have my button in the bottom
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = (displayMetrics.heightPixels*75)/100;

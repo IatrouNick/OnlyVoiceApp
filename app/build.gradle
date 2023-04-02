@@ -54,5 +54,4 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     //Add recycler view dependency
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
-
 }
