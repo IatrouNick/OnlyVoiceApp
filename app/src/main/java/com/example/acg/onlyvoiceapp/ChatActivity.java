@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +32,12 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
     private Button usersBtn;
     private FirebaseAuth mAuth;
     private RecyclerView mRecyclerViewUsers;
+    private RecyclerView mRecyclerChatViewUsers;
     private SearchAdapter mAdapterUsers;
     private List<Users> mUserList = new ArrayList<>();
+    private List<Users> mUserChatList = new ArrayList<>();
+    private DatabaseReference databaseReference;
+    private List<Chat> mChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +68,6 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
         });
 
         //search functionality if needed and present all users
-
-
         SearchView searchView = findViewById(R.id.searchViewChat);
 
         mRecyclerViewUsers = findViewById(R.id.searchResultsRecyclerViewChat);
@@ -100,7 +103,22 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
 
         });
 
+
+        //Have users that we have already chatted before
+        FirebaseUser firebaseUser;
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        readMessage(firebaseUser.getUid());
+
+
+        mRecyclerChatViewUsers = findViewById(R.id.recentRecyclerViewChat);
+        mRecyclerChatViewUsers.setLayoutManager(new LinearLayoutManager(this));
+        mAdapterUsers = new SearchAdapter(this, mUserChatList);
+        mRecyclerChatViewUsers.setAdapter(mAdapterUsers);
+
+        mAdapterUsers.setOnItemClickListener(this);
     }
+
 
     //Perfrorm the sesarch functionality for users
     private void performSearch(String query) {
@@ -120,7 +138,7 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
 
-                    if (query.equals("")){
+                    if (query.equals("")) {
                         mUserList.add(users);
                         mAdapterUsers.notifyItemInserted(mUserList.size() - 1);
                     }
@@ -168,4 +186,51 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
         intent.putExtra("userKey", users.getUserKey()); // pass the user ID to the next activity
         startActivity(intent);
     }
-}
+
+
+    //show messages in each chat
+    private List<Users> readMessage(String sender) {
+        mChat = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chat");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mChat.clear();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Chat chat = snapshot1.getValue(Chat.class);
+                    assert chat != null;
+                    if (chat.getSender().equals(sender) || (chat.getReceiver().equals(sender))) {
+                        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+                        Query queryRef = usersRef.orderByChild("userKey").equalTo(chat.getReceiver());
+                        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    Users users = dataSnapshot.getValue(Users.class);
+                                    if (!mUserChatList.contains(users)) {
+                                        mUserChatList.add(users);
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+                @Override
+                public void onCancelled (@NonNull DatabaseError error){
+
+                }
+            });
+        System.out.println("list of users is " + mUserChatList);
+        return mUserChatList;
+        }
+    }

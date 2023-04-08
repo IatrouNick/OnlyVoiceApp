@@ -37,13 +37,29 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/chatBtn"
         >
-        <TextView
-            android:id="@+id/chatView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Chat"
-            tools:ignore="HardcodedText">
-        </TextView>
+        <ScrollView
+            android:id="@+id/recentViewChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recentRecyclerViewChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/frame1"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </ScrollView>
     </FrameLayout>
 
     <FrameLayout
