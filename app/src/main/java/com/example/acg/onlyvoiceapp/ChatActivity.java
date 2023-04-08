@@ -35,7 +35,7 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
     private RecyclerView mRecyclerChatViewUsers;
     private SearchAdapter mAdapterUsers;
     private List<Users> mUserList = new ArrayList<>();
-    private List<Users> mUserChatList = new ArrayList<>();
+    public List<Users> mUserChatList = new ArrayList<>();
     private DatabaseReference databaseReference;
     private List<Chat> mChat;
 
@@ -108,7 +108,18 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
         FirebaseUser firebaseUser;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        readMessage(firebaseUser.getUid());
+        mUserChatList = getChatUsers(firebaseUser.getUid());
+
+
+
+
+
+
+
+
+
+
+
 
 
         mRecyclerChatViewUsers = findViewById(R.id.recentRecyclerViewChat);
@@ -189,7 +200,8 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
 
 
     //show messages in each chat
-    private List<Users> readMessage(String sender) {
+    private List<Users> getChatUsers(String sender) {
+
         mChat = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chat");
@@ -208,12 +220,24 @@ public class ChatActivity extends AppCompatActivity implements SearchAdapter.OnI
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     Users users = dataSnapshot.getValue(Users.class);
-                                    if (!mUserChatList.contains(users)) {
-                                        mUserChatList.add(users);
-
+                                    boolean addUser = true;
+                                    for (int i=0 ; i<mUserChatList.size();i++) {
+                                        if (mUserChatList.get(i).getUserKey().equals(users.getUserKey())) {
+                                            addUser = false;
+                                        }
                                     }
+
+                                    if (addUser) {
+                                        mUserChatList.add(users);
+                                        mAdapterUsers.notifyItemInserted(mUserChatList.size() - 1);
+                                    }
+
                                 }
+
+
+
                             }
+
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
