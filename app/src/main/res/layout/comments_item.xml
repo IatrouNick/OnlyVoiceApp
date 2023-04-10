@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".CommentsItems"
+    android:padding="20dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <TextView
+        android:id="@+id/commentAuthorFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize = "15sp"
+        android:text="first"
+        />
+
+    <TextView
+        android:id="@+id/commentBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize = "20sp"
+        android:text="first"
+        />
+
+    <Button
+        android:id="@+id/commentDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:hint="Delete Comment"
+        android:textSize="10sp"
+        />
+
+</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

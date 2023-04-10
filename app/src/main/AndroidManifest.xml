@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlyVoiceApp">
+        <activity android:name=".PostsDetails"/>
         <activity android:name=".MessageActivity"
-            android:parentActivityName=".ChatActivity">
-        </activity>
+            android:parentActivityName=".ChatActivity"/>
         <activity android:name=".ChatActivity" />
         <activity android:name=".PostsItems" />
         <activity android:name=".PostCreateActivity" />

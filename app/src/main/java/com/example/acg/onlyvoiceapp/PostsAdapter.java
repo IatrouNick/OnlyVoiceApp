@@ -1,23 +1,24 @@
 package com.example.acg.onlyvoiceapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.EditText;
+import android.widget.Toast;
+import android.content.Intent;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,13 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
@@ -41,10 +37,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
     private PostsAdapter.OnDoubleClickListener onDoubleClickListener;
     private FirebaseAuth mAuth;
     public boolean found = false;
+    private LayoutInflater inflater;
+    public String userName;
+
+
 
     public PostsAdapter(Context context, List<Posts> postList) {
         mContext = context;
         mPostList = postList;
+        inflater = LayoutInflater.from(context);
 
     }
 
@@ -54,6 +55,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
     public void setOnItemClickListener(PostsAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
+
     }
 
     public interface OnDoubleClickListener extends PostsAdapter.OnItemClickListener {
@@ -83,6 +85,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String userKey = firebaseUser.getUid();
+
+
 
 
         //Get authors name
@@ -116,14 +120,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
 
 
         //get comments button
+        //show comments of a post/ create comment
         holder.postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                //open a comment section
 
-            }
-        });
+                Intent intent = new Intent(mContext, PostsDetails.class);
+                intent.putExtra("postKey", postKey); // pass the post key to the next activity
+                mContext.startActivity(intent);
+                    }
+                });
+
 
         //delete button
         holder.postDelete.setOnClickListener(new View.OnClickListener() {
@@ -132,16 +139,35 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
                 //open a comment section
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts/" + postKey);
 
-                // Call removeValue() method to delete the node
-                ref.removeValue()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
+                //this is a confirmation dialog for the delete post functionality
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Are you sure you want to delete this post?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
+                        // Call removeValue() method to delete the node
+                        ref.removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                });
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
+        //postsRef = FirebaseDatabase.getInstance().getReference("Posts");
+
 
 //find likes for each post
         // Attach a listener to each post to count the number of likes
@@ -167,7 +193,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsItems> {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        
+
 
 //use below functionality to like/ remove like from a post
         holder.itemView.setOnClickListener(new View.OnClickListener() {

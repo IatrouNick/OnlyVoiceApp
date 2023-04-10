@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.SearchView;
 
 import com.example.acg.onlyvoiceapp.databinding.ActivityWallBinding;
@@ -53,8 +57,6 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         });
 
 
-
-
         //simple logout button
         binding.logoutBtn.setOnClickListener(view -> {
             mAuth.signOut();
@@ -69,6 +71,9 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         //    startActivity(intent);
             startActivity(new Intent(WallActivity.this, PostCreateActivity.class));
         });
+
+
+
 
         //search users based on written text in the edittext field
         SearchView searchView = findViewById(R.id.searchView);
@@ -123,9 +128,6 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
 
 
         loadPosts();
-
-
-
 
 
 
