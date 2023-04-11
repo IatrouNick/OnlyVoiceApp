@@ -105,11 +105,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsItems> {
             @Override
             public void onClick(View v) {
                 //open a comment section
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts/" + commentsKey);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Comments/" + commentsKey);
 
                 //this is a confirmation dialog for the delete comments functionality
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("Are you sure you want to delete this post?");
+                builder.setMessage("Are you sure you want to delete this comment?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
