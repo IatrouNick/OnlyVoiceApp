@@ -11,7 +11,7 @@ import android.widget.TextView;
 This one is for the recycle view. have a view for each user found 
 
 */
-public class SearchUsersItems extends RecyclerView.ViewHolder {
+public class SearchUsersItems extends RecyclerView.ViewHolder{
 
     public TextView searchFirstName;
     public TextView searchLastName;

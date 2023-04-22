@@ -3,6 +3,7 @@ package com.example.acg.onlyvoiceapp;
 import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +32,12 @@ public class PostsItems extends RecyclerView.ViewHolder {
 
     public TextView postAuthorFullName;
     public TextView postBody;
-    public Button postComment;
+    public ImageButton postComment;
     public TextView postLike;
-    public TextView postLikesText;
+    public ImageButton postLikesImage;
 
     private FirebaseAuth mAuth;
-    public Button postDelete;
+    public ImageButton postDelete;
     public RecyclerView commentsRecyclerView;
 
 
@@ -48,7 +49,7 @@ public class PostsItems extends RecyclerView.ViewHolder {
         postBody = itemView.findViewById(R.id.postBody);
         postComment = itemView.findViewById(R.id.postComment);
         postLike = itemView.findViewById(R.id.postLike);
-        postLikesText = itemView.findViewById(R.id.postLikesText);
+        postLikesImage = itemView.findViewById(R.id.postLikesImage);
         postDelete = itemView.findViewById(R.id.postDelete);
         commentsRecyclerView = itemView.findViewById(R.id.commentsRecyclerView);
 

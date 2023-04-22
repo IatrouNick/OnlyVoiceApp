@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/border"
     tools:context=".CommentsItems"
     android:padding="20dp"
     >
@@ -29,14 +30,17 @@
         android:text="first"
         />
 
-    <Button
-        android:id="@+id/commentDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:hint="Delete Comment"
-        android:textSize="10sp"
-        />
+
+
+        <ImageButton
+            android:id="@+id/commentDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete"
+            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:hint="Delete"/>
 
 </LinearLayout>
 

@@ -17,27 +17,32 @@
         android:id="@+id/postBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Storytime"
+        android:hint="Storytime"
         android:layout_below="@+id/postTitle"
         />
 
-    <Button
-        android:id="@+id/speakBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Speak"
-        android:onClick="startRecording"
-        android:layout_below="@+id/postBody"
-        />
 
-    <Button
+    <ImageButton
+        android:id="@+id/speakBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/microphone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="startRecording"
+        android:layout_below="@+id/postBody"/>
+
+
+
+
+    <ImageButton
         android:id="@+id/clearBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/clearpost"
         android:layout_alignParentRight="true"
-        android:text="Clear Post"
-        android:layout_below="@+id/postBody"
-        tools:ignore="RtlHardcoded" />
+        android:onClick="startRecording"
+        android:layout_below="@+id/postBody"/>
 
     <Button
         android:id="@+id/postBtn"

@@ -5,30 +5,46 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:screenOrientation="portrait"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlyVoiceApp">
-        <activity android:name=".PostsDetails"/>
+        <activity android:name=".PostsDetails"
+            android:parentActivityName=".WallActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MessageActivity"
-            android:parentActivityName=".ChatActivity"/>
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".PostsItems" />
-        <activity android:name=".PostCreateActivity" />
-        <activity android:name=".ShowProfile" />
-        <activity android:name=".SearchUsersItems" />
-        <activity android:name=".ProfileCreationActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".ChatActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChatActivity"
+            android:parentActivityName=".WallActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PostsItems"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PostCreateActivity"
+            android:parentActivityName=".WallActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ShowProfile"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SearchUsersItems"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileCreationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegistrationActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WallActivity" />
+        <activity android:name=".WallActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

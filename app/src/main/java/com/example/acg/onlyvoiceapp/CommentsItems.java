@@ -2,6 +2,7 @@ package com.example.acg.onlyvoiceapp;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +28,7 @@ public class CommentsItems extends RecyclerView.ViewHolder {
     public TextView commentBody;
 
     private FirebaseAuth mAuth;
-    public Button commentDelete;
+    public ImageButton commentDelete;
 
 
     public CommentsItems(View view) {

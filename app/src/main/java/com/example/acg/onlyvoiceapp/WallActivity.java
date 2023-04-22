@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.acg.onlyvoiceapp.databinding.ActivityWallBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,7 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
     private PostsAdapter mAdapterPosts;
     private List<Posts> mPostsList = new ArrayList<>();
     private DatabaseReference postsRef;
+    private TextView mainFeedTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class WallActivity extends AppCompatActivity implements SearchAdapter.OnI
         binding = ActivityWallBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        mainFeedTitle = findViewById(R.id.mainFeedTitle);
+        mainFeedTitle.setText("Main Feed");
+        getSupportActionBar().setTitle(mainFeedTitle.getText());
         mAuth = FirebaseAuth.getInstance();
         checkUser();
 

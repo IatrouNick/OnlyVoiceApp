@@ -9,19 +9,19 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:autoSizeTextType="uniform"
-        android:text="First "
-        tools:ignore="HardcodedText" />
+        android:layout_height="100dp"
+        android:text="First " />
+
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleSignInBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="136dp" />
+        android:layout_below="@+id/titleView"
+
+        android:layout_marginTop="50dp" />
 
     <EditText
         android:id="@+id/emailLgn"

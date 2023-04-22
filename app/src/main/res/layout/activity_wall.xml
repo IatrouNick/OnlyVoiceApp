@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".WallActivity">
 
+    <TextView
+        android:id="@+id/mainFeedTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Main Feed"
+        tools:ignore="HardcodedText"
+        android:visibility="gone"
+        >
+    </TextView>
+
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"

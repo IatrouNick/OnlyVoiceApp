@@ -96,16 +96,6 @@ public class PostsDetails extends AppCompatActivity implements CommentsAdapter.O
 
 
 
-  //      commentsRecyclerView = findViewById(R.id.commentsRecyclerView);
-  //      commentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-  //      commentsAdapter = new CommentsAdapter(this, mCommentsList);
-  //
-  //      commentsAdapter.setOnItemClickListener(this);
-  //
-  //      commentsRecyclerView.setAdapter(commentsAdapter);
-
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postKey);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -114,6 +104,7 @@ public class PostsDetails extends AppCompatActivity implements CommentsAdapter.O
                 Posts posts = dataSnapshot.getValue(Posts.class);
                 postDetailsAuthorFullName.setText(posts.getUserName());
                 postDetailsBody.setText(posts.getPostBody());
+                getSupportActionBar().setTitle(postDetailsAuthorFullName.getText());
 
             }
 

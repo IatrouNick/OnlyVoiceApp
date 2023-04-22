@@ -6,6 +6,7 @@ import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +30,8 @@ public class PostCreateActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String fullName;
     private String postTitle;
-    private Button speakBtn;
-    private Button clearBtn;
+    private ImageButton speakBtn;
+    private ImageButton clearBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +124,12 @@ public class PostCreateActivity extends AppCompatActivity {
                 postBody.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
             }
             else{
-                String message = postBody.getText() + " ";
-                postBody.setText(message + data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+                String message = postBody.getText() +" ";
+                if (message.equals(" ")){
+                    postBody.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+                }else {
+                    postBody.setText(message + data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+                }
             }
 
         }

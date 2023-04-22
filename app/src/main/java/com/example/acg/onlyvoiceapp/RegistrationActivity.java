@@ -39,8 +39,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        getSupportActionBar().setTitle("Registration");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         regBtn.setOnClickListener(view -> {
             createUser();
+
 
         });
 

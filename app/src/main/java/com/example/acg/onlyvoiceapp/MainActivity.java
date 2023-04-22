@@ -4,13 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -44,13 +51,14 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth mAuth;
 
+
     private static final String TAG = "GOOGLE_SIGN_IN_TAG";
 
     EditText emailLgn;
     EditText passLgn;
     Button registerLgn;
     Button signInBtn;
-
+    TextView titleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,28 @@ public class MainActivity extends AppCompatActivity {
         passLgn  = findViewById(R.id.passLgn);
         registerLgn   = findViewById(R.id.registerLgn);
         signInBtn = findViewById(R.id.signInBtn);
+        titleView = findViewById(R.id.titleView);
+
+
+        String title = "OnlyVoice";
+        SpannableString spannableString = new SpannableString(title);
+
+        // Set the color of the first word to red
+        spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set the color of the second word to green
+        spannableString.setSpan(new ForegroundColorSpan(Color.rgb(0,255,255)), 4, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        binding.titleView.setText(spannableString);
+
+
+
+            //binding.titleView.setText(Html.fromHtml(title));
+            binding.titleView.setTextSize(72);
+
+
+
+
 
 
         //configure Google Sign in
