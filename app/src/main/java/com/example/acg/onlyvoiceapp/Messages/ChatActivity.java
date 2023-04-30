@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Messages;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 
+import com.example.acg.onlyvoiceapp.Classes.Chat;
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.R;
+import com.example.acg.onlyvoiceapp.Search.SearchAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

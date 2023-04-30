@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Comments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acg.onlyvoiceapp.Classes.Comments;
+import com.example.acg.onlyvoiceapp.Classes.Posts;
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.Posts.PostsDetails;
+import com.example.acg.onlyvoiceapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

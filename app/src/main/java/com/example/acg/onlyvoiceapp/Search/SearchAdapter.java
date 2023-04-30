@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.R;
 
 import java.util.List;
 

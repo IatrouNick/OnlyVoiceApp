@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Posts;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.acg.onlyvoiceapp.Classes.Comments;
+import com.example.acg.onlyvoiceapp.Classes.Posts;
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.Comments.CommentsAdapter;
+import com.example.acg.onlyvoiceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 

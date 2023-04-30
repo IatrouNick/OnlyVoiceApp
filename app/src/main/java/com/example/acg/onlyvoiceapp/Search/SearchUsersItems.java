@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Search;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.acg.onlyvoiceapp.R;
+
 /*
 This one is for the recycle view. have a view for each user found 
 

@@ -1,4 +1,4 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Registration;
 /*
 This activity will always be the first activity a new user is seeing to make create their profile
 It will store email/name/surname and will have an aut increment for the id
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

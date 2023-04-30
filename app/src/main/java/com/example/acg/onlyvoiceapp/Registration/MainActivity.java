@@ -1,14 +1,12 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Registration;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -21,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.acg.onlyvoiceapp.R;
+import com.example.acg.onlyvoiceapp.MainFeed.WallActivity;
 import com.example.acg.onlyvoiceapp.databinding.ActivityMainBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // Set the color of the second word to green
-        spannableString.setSpan(new ForegroundColorSpan(Color.rgb(0,255,255)), 4, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.rgb(158,87,184)), 4, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         binding.titleView.setText(spannableString);
 

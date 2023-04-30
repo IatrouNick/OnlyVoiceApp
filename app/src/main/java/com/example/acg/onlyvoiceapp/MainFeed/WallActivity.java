@@ -1,21 +1,26 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.MainFeed;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.acg.onlyvoiceapp.Classes.Posts;
+import com.example.acg.onlyvoiceapp.Classes.Users;
+import com.example.acg.onlyvoiceapp.Messages.ChatActivity;
+import com.example.acg.onlyvoiceapp.Posts.PostCreateActivity;
+import com.example.acg.onlyvoiceapp.Posts.PostsAdapter;
+import com.example.acg.onlyvoiceapp.R;
+import com.example.acg.onlyvoiceapp.Registration.MainActivity;
+import com.example.acg.onlyvoiceapp.Registration.ShowProfile;
+import com.example.acg.onlyvoiceapp.Search.SearchAdapter;
 import com.example.acg.onlyvoiceapp.databinding.ActivityWallBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

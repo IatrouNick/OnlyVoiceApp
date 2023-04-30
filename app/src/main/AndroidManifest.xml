@@ -12,30 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnlyVoiceApp">
-        <activity android:name=".PostsDetails"
-            android:parentActivityName=".WallActivity"
+        <activity android:name=".Posts.PostsDetails"
+            android:parentActivityName=".MainFeed.WallActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MessageActivity"
-            android:parentActivityName=".ChatActivity"
+        <activity android:name=".Messages.MessageActivity"
+            android:parentActivityName=".Messages.ChatActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ChatActivity"
-            android:parentActivityName=".WallActivity"
+        <activity android:name=".Messages.ChatActivity"
+            android:parentActivityName=".MainFeed.WallActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PostsItems"
+        <activity android:name=".Posts.PostsItems"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PostCreateActivity"
-            android:parentActivityName=".WallActivity"
+        <activity android:name=".Posts.PostCreateActivity"
+            android:parentActivityName=".MainFeed.WallActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ShowProfile"
+        <activity android:name=".Registration.ShowProfile"
+            android:parentActivityName=".MainFeed.WallActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SearchUsersItems"
+        <activity android:name=".Search.SearchUsersItems"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ProfileCreationActivity"
+        <activity android:name=".Registration.ProfileCreationActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".RegistrationActivity"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".Registration.RegistrationActivity"
+            android:parentActivityName=".Registration.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".Registration.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WallActivity"
+        <activity android:name=".MainFeed.WallActivity"
             android:screenOrientation="portrait"/>
     </application>
 

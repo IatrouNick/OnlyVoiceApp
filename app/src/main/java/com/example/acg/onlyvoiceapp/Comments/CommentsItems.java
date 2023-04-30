@@ -1,18 +1,13 @@
-package com.example.acg.onlyvoiceapp;
+package com.example.acg.onlyvoiceapp.Comments;
 
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.PluralsRes;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.acg.onlyvoiceapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class PostsItems extends RecyclerView.ViewHolder {
+public class CommentsItems extends RecyclerView.ViewHolder {
 
 
     //postAuthorFirstName
@@ -30,31 +25,23 @@ public class PostsItems extends RecyclerView.ViewHolder {
     //postBody
     //postComment
 
-    public TextView postAuthorFullName;
-    public TextView postBody;
-    public ImageButton postComment;
-    public TextView postLike;
-    public ImageButton postLikesImage;
+    public TextView commentAuthorFullName;
+    public TextView commentBody;
 
     private FirebaseAuth mAuth;
-    public ImageButton postDelete;
-    public RecyclerView commentsRecyclerView;
+    public ImageButton commentDelete;
 
 
-    public PostsItems(View view) {
+    public CommentsItems(View view) {
         super(view);
 
 
-        postAuthorFullName = itemView.findViewById(R.id.postAuthorFullName);
-        postBody = itemView.findViewById(R.id.postBody);
-        postComment = itemView.findViewById(R.id.postComment);
-        postLike = itemView.findViewById(R.id.postLike);
-        postLikesImage = itemView.findViewById(R.id.postLikesImage);
-        postDelete = itemView.findViewById(R.id.postDelete);
-        commentsRecyclerView = itemView.findViewById(R.id.commentsRecyclerView);
+        commentAuthorFullName = itemView.findViewById(R.id.commentAuthorFullName);
+        commentBody = itemView.findViewById(R.id.commentBody);
+        commentDelete = itemView.findViewById(R.id.commentDelete);
 
 
-        //Use this for onClick functionalities for posts
+        //Use this for onClick functionalities for comments
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,13 +50,13 @@ public class PostsItems extends RecyclerView.ViewHolder {
                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                 assert firebaseUser != null;
                 String userId = firebaseUser.getUid();
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Posts");
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Comments");
                 Query queryRef = databaseReference.orderByChild("userKey").equalTo(userId);
                 queryRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                            String postKey = postSnapshot.getKey();
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            String commentKey = snapshot.getKey();
                             String key = databaseReference.push().getKey();
 
                         }
